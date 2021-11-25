@@ -1,3 +1,5 @@
+includeBuild("convention-plugins")
+
 pluginManagement {
     repositories {
         google()
@@ -14,4 +16,3 @@ pluginManagement {
     }
 }
 rootProject.name = "mobile-multiplatform-lib"
-

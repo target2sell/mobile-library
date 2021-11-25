@@ -1,7 +1,7 @@
 plugins {
     val kotlinVersion = "1.5.31"
     kotlin("multiplatform") version kotlinVersion
-    id("maven-publish")
+    id("convention.publication")
     id("com.android.library")
     kotlin("plugin.serialization") version kotlinVersion
 }
