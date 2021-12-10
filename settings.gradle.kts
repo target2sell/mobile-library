@@ -1,5 +1,3 @@
-includeBuild("convention-plugins")
-
 pluginManagement {
     repositories {
         google()
