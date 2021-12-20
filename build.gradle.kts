@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     val kotlinVersion = "1.5.31"
     kotlin("multiplatform") version kotlinVersion
@@ -5,6 +7,7 @@ plugins {
     `signing`
     id("com.android.library")
     kotlin("plugin.serialization") version kotlinVersion
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 }
 
 group = "com.target2sell.library"
@@ -21,9 +24,19 @@ kotlin {
         publishLibraryVariants("release")
     }
     iosX64("ios") {
-        binaries {
-            framework {
-                baseName = "library"
+        val libraryName = "Target2sellSDK"
+        val xcf = XCFramework(libraryName)
+        ios {
+            binaries.framework {
+                baseName = libraryName
+                xcf.add(this)
+            }
+        }
+        multiplatformSwiftPackage {
+            packageName("Target2sellSDK")
+            swiftToolsVersion("5.5.0")
+            targetPlatforms {
+                iOS { v("14") }
             }
         }
     }
