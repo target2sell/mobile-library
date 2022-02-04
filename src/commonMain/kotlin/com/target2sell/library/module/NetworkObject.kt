@@ -9,7 +9,7 @@ import co.touchlab.kermit.Logger as KermitLogger
 internal fun makeClient(kermitLogger: KermitLogger) : HttpClient {
     return HttpClient {
         install(Logging) {
-            level = LogLevel.ALL
+            level = LogLevel.INFO
             logger = object : Logger {
                 override fun log(message: String) {
                     kermitLogger.d(message = message)
