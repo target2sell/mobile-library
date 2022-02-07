@@ -95,7 +95,7 @@ The tracking is called by using the asynchronous function **sendTracking**  whic
 |domain          		|String     | is  **Mandatory**  if the beginning of your website URL changes in fonction of your pages (i.e : www.mywebsite.com becomes product456.mywebsite.com when visiting the product 456 page) |
 |itemID          		|String     | item id. List of products on the page. Each one of them should be separated by « \| ». Ex: p456\|p76\|p890\|p56. **Mandatory**  on a « Product page », « Cart page », « Search result page », « Post-payment page »       |
 |categoryID          	|String     | id of the main category of a product list. **Mandatory**  on a « Category page »       |
-|cartTotalAmount        |String     | total amount of the cart (VAT included). **Mandatory**  on a « Cart page », « Post-payment page »   |
+|cartTotalAmount        |Double     | total amount of the cart (VAT included). **Mandatory**  on a « Cart page », « Post-payment page »   |
 |productQuantity        |String     | formatted list of the quantity of each product in the cart. Each identifier has to be separated from the next one by "\|" **Mandatory**  on a « Cart page », « Post-payment page » |
 |keywords				|String     | keywords from search **Mandatory**  on a « Search result page »  |
 |orderID          		|String     | unique identifier of the order placed by the visitor. **Mandatory**  on a « Post-payment page »  |

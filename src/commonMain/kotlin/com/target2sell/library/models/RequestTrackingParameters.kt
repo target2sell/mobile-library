@@ -32,7 +32,7 @@ internal data class RequestTrackingParameters (
     @SerialName("aID")
     val categoryId: Int? = null,
     @SerialName("bS")
-    val cartTotalAmount: Int? = null,
+    val cartTotalAmount: Double? = null,
     @SerialName("qTE")
     val productQuantity: String? = null,
     @SerialName("kW")

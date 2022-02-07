@@ -12,7 +12,7 @@ data class TrackingParameters (
     val domain: String? = null,
     val itemId: String? = null,
     val categoryId: Int? = null,
-    val cartTotalAmount: Int? = null,
+    val cartTotalAmount: Double? = null,
     val productQuantity: String? = null,
     val keywords: String? = null,
     val orderId: String? = null,
