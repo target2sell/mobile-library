@@ -3,6 +3,7 @@ package com.target2sell.library.expect
 import com.target2sell.library.models.Target2SellUserAgent
 import kotlin.test.Test
 import kotlin.test.assertContains
+import kotlin.test.assertTrue
 
 class Target2SellUserAgentTest {
 

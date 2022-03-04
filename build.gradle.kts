@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    val kotlinVersion = "1.5.31"
+    val kotlinVersion = "1.6.10"
     kotlin("multiplatform") version kotlinVersion
     `maven-publish`
     `signing`
@@ -23,21 +23,29 @@ kotlin {
     android {
         publishLibraryVariants("release")
     }
-    iosX64("ios") {
-        val libraryName = "Target2sellSDK"
-        val xcf = XCFramework(libraryName)
-        ios {
-            binaries.framework {
-                baseName = libraryName
-                xcf.add(this)
-            }
+    val libraryName = "Target2sellSDK"
+    val xcf = XCFramework(libraryName)
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = libraryName
+            xcf.add(this)
         }
-        multiplatformSwiftPackage {
-            packageName("Target2sellSDK")
-            swiftToolsVersion("5.5.0")
-            targetPlatforms {
-                iOS { v("14") }
-            }
+    }
+    /*
+        WARNING !!! current version doesn't generate arm simulator framework
+        Jetbrain tool should be use to generate XCFramework :
+        gradle->other->assembleTarget2sellSDKReleaseXCFramework
+        then copy generated XCFramework to SPM
+     */
+    multiplatformSwiftPackage {
+        packageName("Target2sellSDK")
+        swiftToolsVersion("5.5.0")
+        targetPlatforms {
+            iOS { v("14") }
         }
     }
 
@@ -46,7 +54,7 @@ kotlin {
 
     fun getExtraString(name: String) = ext[name]?.toString()
 
-// Grabbing secrets from local.properties file or from environment variables, which could be used on CI
+    // Grabbing secrets from local.properties file or from environment variables, which could be used on CI
     publishing {
         // Configure maven central repository
         repositories {
@@ -96,11 +104,17 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "1.6.4"
+        all {
+            languageSettings.optIn("io.ktor.util.InternalAPI")
+        }
+        val ktorVersion = "1.6.7"
         val ktxVersion = "1.6.0"
         val jUnitVersion = "4.13.2"
         val mockkVersion = "1.11.0"
         val kermitVersion = "1.0.0-rc4"
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
 
         val commonMain by getting {
             dependencies {
@@ -133,12 +147,24 @@ kotlin {
                 implementation("io.mockk:mockk:$mockkVersion")
             }
         }
-        val iosMain by getting {
+        val iosMain by creating {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
         }
-        val iosTest by getting
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(commonTest)
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
+        }
     }
 }
 

@@ -144,5 +144,4 @@ internal class Target2SellServiceTest {
             ) is Resource.Error
         )
     }
-
 }
