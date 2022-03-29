@@ -15,6 +15,10 @@ internal class Target2SellRepository(
     private val storage: Target2SellStorage
 ) {
 
+    fun getUUID(): String? {
+        return storage.getUUID()
+    }
+
     fun getRank(): String {
         val rank = storage.getRank()
         return if (!rank.isNullOrEmpty()) {

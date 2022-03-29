@@ -43,6 +43,10 @@ class Target2SellLibrary internal constructor(
         return repository.retrieveAndStoreRank(rankParameters, customerId)
     }
 
+    fun getUUID(): String? {
+        return repository.getUUID()
+    }
+
     fun getRank(): String {
         return repository.getRank()
     }
