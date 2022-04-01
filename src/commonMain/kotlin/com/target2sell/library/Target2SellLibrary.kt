@@ -40,9 +40,11 @@ class Target2SellLibrary internal constructor(
     }
 
     suspend fun useOrganiseModule(rankParameters: RankParameters): Resource<String> {
-        return doIfCMPIsEnabled {
-            repository.retrieveAndStoreRank(rankParameters, customerId)
-        }
+        return repository.retrieveAndStoreRank(rankParameters, customerId)
+    }
+
+    fun getUUID(): String? {
+        return repository.getUUID()
     }
 
     fun getRank(): String {
@@ -56,9 +58,7 @@ class Target2SellLibrary internal constructor(
     }
 
     suspend fun getRecommendations(recommendationParameters: RecommendationParameters): Resource<String> {
-        return doIfCMPIsEnabled {
-            repository.getRecommendations(recommendationParameters, userAgent, customerId)
-        }
+        return repository.getRecommendations(recommendationParameters, userAgent, customerId)
     }
 
     private suspend fun <T> doIfCMPIsEnabled(block: suspend () -> Resource<T>): Resource<T> {

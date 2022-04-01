@@ -6,11 +6,13 @@ import com.target2sell.library.models.RecommendationParameters
 import com.target2sell.library.models.TrackingParameters
 import com.target2sell.library.module.ServiceLocator
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @Suppress("IllegalIdentifier")
 class Target2SellLibraryTest {
@@ -24,6 +26,15 @@ class Target2SellLibraryTest {
         libraryConfiguration = mockk(relaxed = true)
         serviceLocator = mockk(relaxed = true)
         target2SellLibrary = Target2SellLibrary(libraryConfiguration, serviceLocator)
+    }
+
+    @Test
+    fun `call getUUID returns the actual session id`() {
+        every { serviceLocator.target2SellRepository.getUUID() } returns "my uuid"
+        assertEquals(
+            "my uuid",
+            target2SellLibrary.getUUID(),
+        )
     }
 
     @Test
@@ -43,10 +54,12 @@ class Target2SellLibraryTest {
 
     @Test
     fun `call useOrganiseModule with CMP Disabled failed`() {
+        val rankResult = "Rank result"
+        coEvery { serviceLocator.target2SellRepository.retrieveAndStoreRank(any(), any()) } returns Resource.Success(rankResult)
         target2SellLibrary.disableCmp()
         runBlocking {
             assertEquals(
-                Resource.Error(T2SError.EnablerCMPError),
+                Resource.Success(rankResult),
                 target2SellLibrary.useOrganiseModule(RankParameters(""))
             )
         }
@@ -71,11 +84,15 @@ class Target2SellLibraryTest {
 
 
     @Test
-    fun `call getRecommendations with CMP Disabled failed`() {
+    fun `call getRecommendations with CMP Disabled succeed`() {
         target2SellLibrary.disableCmp()
+        val recommendationResult = "Recommendation result"
+        coEvery { serviceLocator.target2SellRepository.getRecommendations(any(), any(), any()) } returns Resource.Success(
+            recommendationResult
+        )
         runBlocking {
             assertEquals(
-                Resource.Error(T2SError.EnablerCMPError),
+                Resource.Success(recommendationResult),
                 target2SellLibrary.getRecommendations(RecommendationParameters("", 1))
             )
         }
@@ -99,10 +116,14 @@ class Target2SellLibraryTest {
 
     @Test
     fun `call sendTracking with CMP Disabled failed`() {
+        val recommendationResult = "Recommendation result"
+        coEvery { serviceLocator.target2SellRepository.getRecommendations(any(), any(), any()) } returns Resource.Success(
+            recommendationResult
+        )
         target2SellLibrary.disableCmp()
         runBlocking {
             assertEquals(
-                Resource.Error(T2SError.EnablerCMPError),
+                Resource.Success(recommendationResult),
                 target2SellLibrary.getRecommendations(RecommendationParameters("", 1))
             )
         }

@@ -10,6 +10,7 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.util.*
 
 internal class Target2SellApi(private val httpClient: HttpClient) {
 
@@ -26,6 +27,7 @@ internal class Target2SellApi(private val httpClient: HttpClient) {
         }.receive()
     }
 
+    @OptIn(InternalAPI::class)
     private fun buildTrackingParameters(trackingParameters: RequestTrackingParameters) =
         Parameters.build {
             trackingParameters.run {
@@ -139,6 +141,7 @@ internal class Target2SellApi(private val httpClient: HttpClient) {
         }
     }
 
+    @InternalAPI
     private fun HttpRequestBuilder.recommendationConfiguration(userAgent: String) {
         headers {
             append(HttpHeaders.ContentType, ContentType.Application.Json)
@@ -176,5 +179,6 @@ internal class Target2SellApi(private val httpClient: HttpClient) {
         private const val mediaAlgoName = "mediaAlgo"
         private const val algorithmName = "ru"
         private const val defaultRankResult = "{\"rank\": \"rank1\"}"
+        private const val trackingId = "trackingId"
     }
 }

@@ -54,5 +54,7 @@ internal data class RequestTrackingParameters (
     @SerialName("mediaAlgo")
     val mediaAlgo: String? = null,
     @SerialName("any")
-    val any: String? = null
+    val any: String? = null,
+    @SerialName("trackingId")
+    val trackingId: String? = null
 )

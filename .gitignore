@@ -1,4 +1,7 @@
 local.properties
 .idea*
-.gradle/*/*
+.gradle/
 build*
+**.DS_Store
+swiftpackage
+Samples/

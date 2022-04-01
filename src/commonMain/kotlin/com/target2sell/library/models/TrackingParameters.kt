@@ -23,5 +23,37 @@ data class TrackingParameters (
     val mediaRuleId: String? = null,
     val mediaCampaignId: String? = null,
     val mediaAlgo: String? = null,
-    val any: String? = null
-)
+    val any: String? = null,
+    val trackingId: String? = null,
+) {
+    constructor(pageId: Int, trackingId: String): this(
+        pageId,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        trackingId){}
+}
+
+
+
+
+
