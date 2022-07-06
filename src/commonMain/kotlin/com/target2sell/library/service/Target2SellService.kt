@@ -22,7 +22,8 @@ internal class Target2SellService(private val api: Target2SellApi) {
     }
 
     suspend fun sendTracking(
-        trackingParameters: TrackingParameters, userAgent: String,
+        trackingParameters: TrackingParameters,
+        userAgent: String,
         uuid: String,
         customerId: String
     ): Resource<String> {
