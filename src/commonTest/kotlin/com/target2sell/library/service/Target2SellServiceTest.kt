@@ -71,6 +71,44 @@ internal class Target2SellServiceTest {
     }
 
     @Test
+    fun `sendTracking succeeds with ResourceError value and badTrackingId`() = runBlocking {
+        val userAgent = "UserAgent"
+        val trackingParameters = TrackingParameters(
+            pageId = 1000,
+            trackingId = "exceptionTrackingId"
+        )
+        val customerIdWithoutException = "customerId"
+        val UUIDWithoutException = "Uuid"
+        assertTrue(
+            target2SellService.sendTracking(
+                trackingParameters,
+                userAgent,
+                UUIDWithoutException,
+                customerIdWithoutException
+            ) is Resource.Error
+        )
+    }
+
+    @Test
+    fun `sendTracking succeeds with ResourceSuccess value and goodTrackingId`() = runBlocking {
+        val userAgent = "UserAgent"
+        val trackingParameters = TrackingParameters(
+            pageId = 1000,
+            trackingId = "goodTrackingId"
+        )
+        val customerIdWithoutException = "customerId"
+        val UUIDWithoutException = "Uuid"
+        assertTrue(
+            target2SellService.sendTracking(
+                trackingParameters,
+                userAgent,
+                UUIDWithoutException,
+                customerIdWithoutException
+            ) is Resource.Success
+        )
+    }
+
+    @Test
     fun `getRank succeeds with NoContent value`() = runBlocking {
         val rankParameters = RankParameters("TEST")
         val customerIdWithException = "exceptionId"

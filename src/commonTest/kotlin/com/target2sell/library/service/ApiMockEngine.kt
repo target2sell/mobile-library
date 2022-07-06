@@ -35,6 +35,10 @@ object ApiMockEngine {
                     urlTrackingWithException -> {
                         if (((request.body) as FormDataContent).formData["cID"] == customerIdWithException) {
                             respond("", HttpStatusCode.BadRequest, responseHeaders)
+                        } else if (((request.body) as FormDataContent).formData["trackingId"] == trackingIdWithException ) {
+                            respond("", HttpStatusCode.BadRequest, responseHeaders)
+                        } else if (((request.body) as FormDataContent).formData["trackingId"] == trackingIdWithoutException ) {
+                            respond("", HttpStatusCode.OK, responseHeaders)
                         } else {
                             respond("", HttpStatusCode.OK, responseHeaders)
                         }
@@ -63,4 +67,6 @@ object ApiMockEngine {
     private const val urlRecommendationWithException = "/1.1/json/Q/$customerIdWithException/fr"
     private const val urlTrackingWithException = "/1.1/json/T/t"
     private const val defaultRankResponseContent = "{\"rank\": \"rank1\"}"
+    private const val trackingIdWithException = "exceptionTrackingId"
+    private const val trackingIdWithoutException = "goodTrackingId"
 }
