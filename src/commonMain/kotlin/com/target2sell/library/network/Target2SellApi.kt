@@ -98,6 +98,9 @@ internal class Target2SellApi(private val httpClient: HttpClient) {
                 mediaAlgo?.let {
                     append(mediaAlgoName, it)
                 }
+                trackingId?.let {
+                    append(trackingIdName, it)
+                }
             }
         }
 
@@ -179,6 +182,6 @@ internal class Target2SellApi(private val httpClient: HttpClient) {
         private const val mediaAlgoName = "mediaAlgo"
         private const val algorithmName = "ru"
         private const val defaultRankResult = "{\"rank\": \"rank1\"}"
-        private const val trackingId = "trackingId"
+        private const val trackingIdName = "trackingId"
     }
 }

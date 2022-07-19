@@ -51,6 +51,7 @@ internal fun TrackingParameters.toRequestTrackingParameters(
     mediaCampaignId = this.mediaCampaignId,
     mediaAlgo = this.mediaAlgo,
     any = this.any,
+    trackingId = this.trackingId
 )
 
 internal fun RankParameters.toRequestRankParameters(uuid: String, customerId: String) = RequestRankParameters(
