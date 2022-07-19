@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.target2sell.library"
-version = "0.0.4"
+version = "0.0.5"
 
 repositories {
     google()
